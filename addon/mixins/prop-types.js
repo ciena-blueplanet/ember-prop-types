@@ -60,7 +60,7 @@ export default Ember.Mixin.create({
       const presentPropKeys = Object.keys(this)
       const defaultProps = this.getDefaultProps()
 
-      const needsDefaultProp = Object.assign({}, ...(Object.keys(defaultProps).forEach((key) => {
+      const needsDefaultProp = Object.assign({}, ...(Object.keys(defaultProps).map((key) => {
         if (!presentPropKeys.hasOwnProperty(key)) {
           return {
             [key]: defaultProps[key]
