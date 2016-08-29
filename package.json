@@ -48,7 +48,7 @@
   "dependencies": {
     "ember-cli-babel": "^5.1.8",
     "ember-get-config": "0.1.7",
-    "npm-install-security-check": "^1.0.0"
+    "npm-install-security-check": "^1.0.2"
   },
   "ember-addon": {
     "configPath": "tests/dummy/config"
