@@ -17,7 +17,7 @@ const helpers = {
         return
       }
 
-      logger.warn(ctx, `Missing required property ${name}`)
+      logger.warn(ctx, `Missing required property: ${name}`)
 
       return
     }
@@ -25,7 +25,7 @@ const helpers = {
     if (def.type in validators) {
       validators[def.type](ctx, name, value, def, true)
     } else {
-      logger.warn(ctx, `Unknown propType ${def.type}`)
+      logger.warn(ctx, `Unknown propType: ${def.type}`)
     }
   },
   /* eslint-enable complexity */
@@ -45,7 +45,7 @@ const helpers = {
         const def = propType[name]
 
         if (def === undefined) {
-          logger.warn(ctx, `propType for ${name} is unknown`)
+          logger.warn(ctx, `propType for "${name}" is unknown`)
           return
         }
 
