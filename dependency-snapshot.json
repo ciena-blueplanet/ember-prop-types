@@ -1,6 +1,6 @@
 {
   "name": "ember-prop-types",
-  "version": "3.3.0",
+  "version": "3.9.0",
   "dependencies": {
     "abbrev": {
       "version": "1.0.9",
@@ -1697,10 +1697,22 @@
       "resolved": "https://registry.npmjs.org/ember-sinon/-/ember-sinon-0.6.0.tgz",
       "dev": true
     },
+    "ember-spread": {
+      "version": "1.0.0",
+      "from": "ember-spread@>=1.0.0 <2.0.0",
+      "resolved": "https://registry.npmjs.org/ember-spread/-/ember-spread-1.0.0.tgz",
+      "dev": true
+    },
     "ember-test-helpers": {
       "version": "0.5.34",
       "from": "ember-test-helpers@>=0.5.33 <0.6.0",
       "resolved": "https://registry.npmjs.org/ember-test-helpers/-/ember-test-helpers-0.5.34.tgz",
+      "dev": true
+    },
+    "ember-test-utils": {
+      "version": "1.5.0",
+      "from": "ember-test-utils@>=1.5.0 <2.0.0",
+      "resolved": "https://registry.npmjs.org/ember-test-utils/-/ember-test-utils-1.5.0.tgz",
       "dev": true
     },
     "ember-try": {

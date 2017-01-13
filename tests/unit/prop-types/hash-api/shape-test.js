@@ -1,8 +1,10 @@
 /**
  * Unit test for the PropTypes.shape validator
  */
+import {expect} from 'chai'
 import Ember from 'ember'
-import {afterEach, beforeEach, describe} from 'mocha'
+const {Logger} = Ember
+import {afterEach, beforeEach, describe, it} from 'mocha'
 import sinon from 'sinon'
 
 import {itValidatesTheProperty, spyOnValidateMethods} from 'dummy/tests/helpers/validator'
@@ -36,9 +38,14 @@ describe('Unit / validator / PropTypes.shape', function () {
 
       Foo = Ember.Object.extend(PropTypesMixin, {
         propTypes: {
-          bar: PropTypes.shape({
-            baz: PropTypes.string.isRequired
-          }).isRequired
+          bar: PropTypes.shape(
+            {
+              baz: PropTypes.string.isRequired
+            },
+            {
+              required: true
+            }
+          )
         }
       })
     })
@@ -52,7 +59,7 @@ describe('Unit / validator / PropTypes.shape', function () {
         })
       })
 
-      itValidatesTheProperty(ctx)
+      itValidatesTheProperty(ctx, false)
     })
 
     describe('when initialized with shape missing sub-property', function () {
@@ -64,6 +71,7 @@ describe('Unit / validator / PropTypes.shape', function () {
 
       itValidatesTheProperty(
         ctx,
+        false,
         'Property bar is missing required property baz',
         'Property bar does not match the given shape'
       )
@@ -80,6 +88,7 @@ describe('Unit / validator / PropTypes.shape', function () {
 
       itValidatesTheProperty(
         ctx,
+        false,
         'Expected property bar.baz to be a string',
         'Property bar does not match the given shape'
       )
@@ -97,6 +106,7 @@ describe('Unit / validator / PropTypes.shape', function () {
 
       itValidatesTheProperty(
         ctx,
+        false,
         'Property bar has an unknown key: spam',
         'Property bar does not match the given shape'
       )
@@ -107,7 +117,7 @@ describe('Unit / validator / PropTypes.shape', function () {
         ctx.instance = Foo.create({bar: 1})
       })
 
-      itValidatesTheProperty(ctx, 'Property bar does not match the given shape')
+      itValidatesTheProperty(ctx, false, 'Property bar does not match the given shape')
     })
 
     describe('when initialized without value', function () {
@@ -115,7 +125,7 @@ describe('Unit / validator / PropTypes.shape', function () {
         ctx.instance = Foo.create()
       })
 
-      itValidatesTheProperty(ctx, 'Missing required property bar')
+      itValidatesTheProperty(ctx, false, 'Missing required property bar')
     })
   })
 
@@ -138,9 +148,14 @@ describe('Unit / validator / PropTypes.shape', function () {
 
       Foo = Ember.Object.extend(PropTypesMixin, {
         propTypes: {
-          bar: PropTypes.shape({
-            baz: PropTypes.string
-          }).isRequired
+          bar: PropTypes.shape(
+            {
+              baz: PropTypes.string
+            },
+            {
+              required: true
+            }
+          )
         }
       })
     })
@@ -154,7 +169,7 @@ describe('Unit / validator / PropTypes.shape', function () {
         })
       })
 
-      itValidatesTheProperty(ctx)
+      itValidatesTheProperty(ctx, false)
     })
 
     describe('when initialized with shape missing sub-property', function () {
@@ -164,7 +179,7 @@ describe('Unit / validator / PropTypes.shape', function () {
         })
       })
 
-      itValidatesTheProperty(ctx)
+      itValidatesTheProperty(ctx, false)
     })
 
     describe('when initialized with incorrect shape value', function () {
@@ -178,6 +193,7 @@ describe('Unit / validator / PropTypes.shape', function () {
 
       itValidatesTheProperty(
         ctx,
+        false,
         'Expected property bar.baz to be a string',
         'Property bar does not match the given shape'
       )
@@ -194,6 +210,7 @@ describe('Unit / validator / PropTypes.shape', function () {
 
       itValidatesTheProperty(
         ctx,
+        false,
         'Property bar has an unknown key: spam',
         'Property bar does not match the given shape'
       )
@@ -204,7 +221,7 @@ describe('Unit / validator / PropTypes.shape', function () {
         ctx.instance = Foo.create({bar: 1})
       })
 
-      itValidatesTheProperty(ctx, 'Property bar does not match the given shape')
+      itValidatesTheProperty(ctx, false, 'Property bar does not match the given shape')
     })
 
     describe('when initialized without value', function () {
@@ -212,23 +229,13 @@ describe('Unit / validator / PropTypes.shape', function () {
         ctx.instance = Foo.create()
       })
 
-      itValidatesTheProperty(ctx, 'Missing required property bar')
+      itValidatesTheProperty(ctx, false, 'Missing required property bar')
     })
   })
 
   describe('when not required and sub-property is required', function () {
     beforeEach(function () {
       ctx.def = {
-        isRequired: {
-          required: true,
-          type: 'shape',
-          typeDefs: {
-            baz: {
-              required: true,
-              type: 'string'
-            }
-          }
-        },
         required: false,
         type: 'shape',
         typeDefs: {
@@ -241,9 +248,14 @@ describe('Unit / validator / PropTypes.shape', function () {
 
       Foo = Ember.Object.extend(PropTypesMixin, {
         propTypes: {
-          bar: PropTypes.shape({
-            baz: PropTypes.string.isRequired
-          })
+          bar: PropTypes.shape(
+            {
+              baz: PropTypes.string.isRequired
+            },
+            {
+              required: false
+            }
+          )
         }
       })
     })
@@ -257,7 +269,7 @@ describe('Unit / validator / PropTypes.shape', function () {
         })
       })
 
-      itValidatesTheProperty(ctx)
+      itValidatesTheProperty(ctx, false)
     })
 
     describe('when initialized with shape missing sub-property', function () {
@@ -269,6 +281,7 @@ describe('Unit / validator / PropTypes.shape', function () {
 
       itValidatesTheProperty(
         ctx,
+        false,
         'Property bar is missing required property baz',
         'Property bar does not match the given shape'
       )
@@ -285,6 +298,7 @@ describe('Unit / validator / PropTypes.shape', function () {
 
       itValidatesTheProperty(
         ctx,
+        false,
         'Expected property bar.baz to be a string',
         'Property bar does not match the given shape'
       )
@@ -302,6 +316,7 @@ describe('Unit / validator / PropTypes.shape', function () {
 
       itValidatesTheProperty(
         ctx,
+        false,
         'Property bar has an unknown key: spam',
         'Property bar does not match the given shape'
       )
@@ -312,7 +327,7 @@ describe('Unit / validator / PropTypes.shape', function () {
         ctx.instance = Foo.create({bar: 1})
       })
 
-      itValidatesTheProperty(ctx, 'Property bar does not match the given shape')
+      itValidatesTheProperty(ctx, false, 'Property bar does not match the given shape')
     })
 
     describe('when initialized without value', function () {
@@ -320,27 +335,13 @@ describe('Unit / validator / PropTypes.shape', function () {
         ctx.instance = Foo.create()
       })
 
-      itValidatesTheProperty(ctx)
+      itValidatesTheProperty(ctx, false)
     })
   })
 
   describe('when not required and sub-property is not required', function () {
     beforeEach(function () {
       ctx.def = {
-        isRequired: {
-          required: true,
-          type: 'shape',
-          typeDefs: {
-            baz: {
-              isRequired: {
-                required: true,
-                type: 'string'
-              },
-              required: false,
-              type: 'string'
-            }
-          }
-        },
         required: false,
         type: 'shape',
         typeDefs: {
@@ -357,9 +358,14 @@ describe('Unit / validator / PropTypes.shape', function () {
 
       Foo = Ember.Object.extend(PropTypesMixin, {
         propTypes: {
-          bar: PropTypes.shape({
-            baz: PropTypes.string
-          })
+          bar: PropTypes.shape(
+            {
+              baz: PropTypes.string
+            },
+            {
+              required: false
+            }
+          )
         }
       })
     })
@@ -373,7 +379,7 @@ describe('Unit / validator / PropTypes.shape', function () {
         })
       })
 
-      itValidatesTheProperty(ctx)
+      itValidatesTheProperty(ctx, false)
     })
 
     describe('when initialized with shape missing sub-property', function () {
@@ -383,7 +389,7 @@ describe('Unit / validator / PropTypes.shape', function () {
         })
       })
 
-      itValidatesTheProperty(ctx)
+      itValidatesTheProperty(ctx, false)
     })
 
     describe('when initialized with incorrect shape value', function () {
@@ -397,6 +403,7 @@ describe('Unit / validator / PropTypes.shape', function () {
 
       itValidatesTheProperty(
         ctx,
+        false,
         'Expected property bar.baz to be a string',
         'Property bar does not match the given shape'
       )
@@ -414,6 +421,7 @@ describe('Unit / validator / PropTypes.shape', function () {
 
       itValidatesTheProperty(
         ctx,
+        false,
         'Property bar has an unknown key: spam',
         'Property bar does not match the given shape'
       )
@@ -424,7 +432,7 @@ describe('Unit / validator / PropTypes.shape', function () {
         ctx.instance = Foo.create({bar: 1})
       })
 
-      itValidatesTheProperty(ctx, 'Property bar does not match the given shape')
+      itValidatesTheProperty(ctx, false, 'Property bar does not match the given shape')
     })
 
     describe('when initialized without value', function () {
@@ -432,7 +440,70 @@ describe('Unit / validator / PropTypes.shape', function () {
         ctx.instance = Foo.create()
       })
 
-      itValidatesTheProperty(ctx)
+      itValidatesTheProperty(ctx, false)
+    })
+  })
+
+  describe('when updatable', function () {
+    beforeEach(function () {
+      Logger.warn.reset()
+
+      ctx.def = {
+        required: false,
+        type: 'shape',
+        updatable: true
+      }
+
+      const Foo = Ember.Object.extend(PropTypesMixin, {
+        propTypes: {
+          bar: PropTypes.shape({foo: PropTypes.string}, {updatable: true})
+        }
+      })
+
+      ctx.instance = Foo.create({bar: {foo: 'bar'}})
+    })
+
+    describe('when updated', function () {
+      beforeEach(function () {
+        ctx.instance.set('bar', {foo: 'baz'})
+      })
+
+      it('does not log warning', function () {
+        expect(Logger.warn.called).to.equal(false)
+      })
+    })
+  })
+
+  describe('when not updatable', function () {
+    beforeEach(function () {
+      Logger.warn.reset()
+
+      ctx.def = {
+        required: false,
+        type: 'shape',
+        updatable: false
+      }
+
+      const Foo = Ember.Object.extend(PropTypesMixin, {
+        propTypes: {
+          bar: PropTypes.shape({foo: PropTypes.string}, {updatable: false})
+        }
+      })
+
+      ctx.instance = Foo.create({bar: {foo: 'bar'}})
+    })
+
+    describe('when updated', function () {
+      beforeEach(function () {
+        ctx.instance.set('bar', {foo: 'baz'})
+      })
+
+      it('logs warning', function () {
+        expect(Logger.warn.called).to.equal(true)
+        expect(Logger.warn).to.have.been.calledWith(
+          `[${ctx.instance.toString()}]: bar should not be updated`
+        )
+      })
     })
   })
 })

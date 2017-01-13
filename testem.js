@@ -1,4 +1,5 @@
 /* jshint node:true*/
+
 var Reporter = require('ember-test-utils/reporter')
 
 module.exports = {

@@ -5,13 +5,13 @@
 import Ember from 'ember'
 const {typeOf} = Ember
 
-import * as logger from '../logger'
+import logger from '../logger'
 
-export default function (validators, ctx, name, value, def) {
+export default function (validators, ctx, name, value, def, logErrors, throwErrors) {
   let valid = false
 
   if (typeOf(def.typeDefs) !== 'array') {
-    logger.warn(ctx, 'PropTypes.oneOfType() requires an array of types to be passed in as an argument')
+    logger.warn(ctx, 'PropTypes.oneOfType() requires an array of types to be passed in as an argument', throwErrors)
 
     return valid
   }
@@ -27,7 +27,7 @@ export default function (validators, ctx, name, value, def) {
 
   if (!valid) {
     const types = def.typeDefs.map((typeDef) => typeDef.type)
-    logger.warn(ctx, `Property ${name} does not match expected types: ${types.join(', ')}`)
+    logger.warn(ctx, `Property ${name} does not match expected types: ${types.join(', ')}`, throwErrors)
   }
 
   return valid

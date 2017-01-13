@@ -16,6 +16,13 @@
   all default property values under a single method.
 </p>
 
+<p>
+  <em>ember-prop-types</em> comes with a few configuration options which can be set in <em>config/environment.js</em>
+  for all environments or specific environments. Below is an example configuration with comments as to what each
+  option is for:
+  {{#code-block language="javascript"}}{{model.config}}{{/code-block}}
+</p>
+
 <h2>Validators</h2>
 
 <div class="flex">
@@ -23,7 +30,12 @@
     <section>
       <dt>{{validator.name}}</dt>
       <dl>{{validator.description}}</dl>
+      <h4>Component Definition</h4>
       {{#code-block language="javascript"}}{{validator.example}}{{/code-block}}
+      {{#if validator.hbs}}
+        <h4>Consumption in Templae</h4>
+        {{#code-block language="handlebars"}}{{validator.hbs}}{{/code-block}}
+      {{/if}}
     </section>
   {{/each}}
 </div>

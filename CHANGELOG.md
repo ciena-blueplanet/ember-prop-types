@@ -1,3 +1,90 @@
+# 3.9.0
+
+* **Added** new `updatable` option to all types to flag components that shouldn't allow updates. By default all properties will allow updates so specifying `updatable: true` isn't necessary.
+
+
+# 3.8.0
+
+* **Added** `EmberComponent` prop-type for properties that come from the `{{component}}` helper.
+
+
+# 3.7.1
+* **Fixed** typo in dummy app.
+
+
+# 3.7.0
+
+* **Added** new alternative API for the following types:
+
+  * `any`
+  * `array`
+  * `bool`
+  * `element`
+  * `EmberObject`
+  * `func`
+  * `null`
+  * `number`
+  * `object`
+  * `string`
+  * `symbol`
+
+  **Example of new API with `any` type**
+
+  ```js
+  bar: PropTypes.any(), // Same as PropTypes.any
+  baz: PropTypes.any({required: true}), // Same as PropTypes.any.isRequired
+  foo: PropTypes.any({required: false}) // same as PropTypes.any
+  ```
+
+  > NOTE: If you update an addon to use this new API, consumers of your addon will also need to be upgraded to the version of `ember-prop-types` that includes this API. Otherwise they'll see errors as `PropTypes.any()` won't work due to the fact `any` will be an object rather than a function.
+
+* **Added** new optional argument to the following types:
+
+  * `arrayOf`
+  * `instanceOf`
+  * `oneOf`
+  * `oneOfType`
+  * `shape`
+
+  **Example of new optional argument with `arrayOf` type**
+
+  ```js
+  baz: PropTypes.arrayOf(PropTypes.string, {required: true}), // Same as PropTypes.arrayOf(PropTypes.string).isRequired
+  foo: PropTypes.arrayOf(PropTypes.string, {required: false}) // same as PropTypes.arrayOf(PropTypes.string)
+  ```
+
+
+# 3.6.0
+
+* **Added** the ability to enable/disable validation from an environment configuration setting, allowing consumers to control which environments `ember-prop-types` warnings/errors appear in. Below is an example of how to explicitly enable validation:
+
+  ```js
+  'ember-prop-types': {
+    validate: true
+  }
+  ```
+
+  > Note: Without explicitly adding this setting things will continue to work as they did before in which validation is enabled for all environments except *production*.
+
+* **Fixed** validation error messages when `throwErrors` is set to true to match error messages when errors are not thrown (logging warnings instead).
+
+
+# 3.5.0
+
+* **Added** ability to validate properties on initialized that are nested under a single property via something like [ember-spread](https://github.com/ciena-blueplanet/ember-spread).
+
+
+# 3.4.0
+
+* **Added** the ability to configure validation errors to be throw as errors instead of logged as warnings. To enable this feature simply add the following to `config/environment.js`:
+
+  ```js
+  'ember-prop-types': {
+    throwErrors: true
+  }
+  ```
+
+
 # 3.3.0
 
 * **Added** opt-in validation checks when properties that are spec'd in `propTypes` are updated. To enable this feature simply add the following to `config/environment.js`:

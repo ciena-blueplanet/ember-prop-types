@@ -52,7 +52,7 @@ describe('Unit / validator / PropTypes.oneOf', function () {
         ctx.instance = Foo.create({bar: 'alpha'})
       })
 
-      itValidatesTheProperty(ctx)
+      itValidatesTheProperty(ctx, false)
     })
 
     describe('when initialized with another valid value', function () {
@@ -60,7 +60,7 @@ describe('Unit / validator / PropTypes.oneOf', function () {
         ctx.instance = Foo.create({bar: 'bravo'})
       })
 
-      itValidatesTheProperty(ctx)
+      itValidatesTheProperty(ctx, false)
     })
 
     describe('when initialized with invalid value', function () {
@@ -68,7 +68,7 @@ describe('Unit / validator / PropTypes.oneOf', function () {
         ctx.instance = Foo.create({bar: 'charlie'})
       })
 
-      itValidatesTheProperty(ctx, 'Property bar is not one of: alpha, bravo')
+      itValidatesTheProperty(ctx, false, 'Property bar is not one of: alpha, bravo')
     })
 
     describe('when initialized without value', function () {
@@ -76,7 +76,7 @@ describe('Unit / validator / PropTypes.oneOf', function () {
         ctx.instance = Foo.create()
       })
 
-      itValidatesTheProperty(ctx, 'Missing required property bar')
+      itValidatesTheProperty(ctx, false, 'Missing required property bar')
     })
   })
 
@@ -98,7 +98,7 @@ describe('Unit / validator / PropTypes.oneOf', function () {
         ctx.instance = Foo.create({bar: 'alpha'})
       })
 
-      itValidatesTheProperty(ctx)
+      itValidatesTheProperty(ctx, false)
     })
 
     describe('when initialized with another valid value', function () {
@@ -106,7 +106,7 @@ describe('Unit / validator / PropTypes.oneOf', function () {
         ctx.instance = Foo.create({bar: 'bravo'})
       })
 
-      itValidatesTheProperty(ctx)
+      itValidatesTheProperty(ctx, false)
     })
 
     describe('when initialized with invalid value', function () {
@@ -114,7 +114,7 @@ describe('Unit / validator / PropTypes.oneOf', function () {
         ctx.instance = Foo.create({bar: 'charlie'})
       })
 
-      itValidatesTheProperty(ctx, 'Property bar is not one of: alpha, bravo')
+      itValidatesTheProperty(ctx, false, 'Property bar is not one of: alpha, bravo')
     })
 
     describe('when initialized without value', function () {
@@ -122,7 +122,7 @@ describe('Unit / validator / PropTypes.oneOf', function () {
         ctx.instance = Foo.create()
       })
 
-      itValidatesTheProperty(ctx)
+      itValidatesTheProperty(ctx, false)
     })
   })
 })

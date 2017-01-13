@@ -38,5 +38,10 @@ export default [
     id: '35697',
     name: 'Justin Bowes',
     username: 'justinbowes'
+  },
+  {
+    id: '411788',
+    name: 'Adam Meadows',
+    username: 'job13er'
   }
 ]

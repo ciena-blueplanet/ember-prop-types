@@ -7,7 +7,7 @@ const {Component, Logger, Mixin} = Ember
 import {afterEach, beforeEach, describe, it} from 'mocha'
 import sinon from 'sinon'
 
-import PropTypesMixin, {PropTypes, helpers} from 'ember-prop-types/mixins/prop-types'
+import PropTypesMixin, {PropTypes, helpers, settings} from 'ember-prop-types/mixins/prop-types'
 
 describe('Unit / Mixins / prop-types', function () {
   let sandbox
@@ -73,44 +73,162 @@ describe('Unit / Mixins / prop-types', function () {
   })
 
   describe('propTypes defined but unknown type on Ember.Object', function () {
+    let MyObject
+
     beforeEach(function () {
       sandbox.spy(Logger, 'warn')
       sandbox.spy(helpers, 'validateProperty')
-      const MyObject = Ember.Object.extend(PropTypesMixin, {
+      MyObject = Ember.Object.extend(PropTypesMixin, {
         propTypes: {
           foo: PropTypes.doesNotExist
         }
       })
-      MyObject.create()
     })
 
-    it('does not call validateProperty', function () {
-      expect(helpers.validateProperty).to.have.callCount(0)
+    describe('validate setting not defined', function () {
+      let validateSettingOriginalValue
+
+      beforeEach(function () {
+        validateSettingOriginalValue = settings.validate
+        settings.validate = undefined
+        MyObject.create()
+      })
+
+      afterEach(function () {
+        settings.validate = validateSettingOriginalValue
+      })
+
+      it('does not call validateProperty', function () {
+        expect(helpers.validateProperty).to.have.callCount(0)
+      })
+
+      it('logs warning message', function () {
+        expect(Logger.warn).to.have.callCount(1)
+      })
     })
 
-    it('logs warning message', function () {
-      expect(Logger.warn).to.have.callCount(1)
+    describe('validate setting set to false', function () {
+      let validateSettingOriginalValue
+
+      beforeEach(function () {
+        validateSettingOriginalValue = settings.validate
+        settings.validate = false
+        MyObject.create()
+      })
+
+      afterEach(function () {
+        settings.validate = validateSettingOriginalValue
+      })
+
+      it('does not call validateProperty', function () {
+        expect(helpers.validateProperty).to.have.callCount(0)
+      })
+
+      it('does not log warning message', function () {
+        expect(Logger.warn).to.have.callCount(0)
+      })
+    })
+
+    describe('validate setting set to true', function () {
+      let validateSettingOriginalValue
+
+      beforeEach(function () {
+        validateSettingOriginalValue = settings.validate
+        settings.validate = true
+        MyObject.create()
+      })
+
+      afterEach(function () {
+        settings.validate = validateSettingOriginalValue
+      })
+
+      it('does not call validateProperty', function () {
+        expect(helpers.validateProperty).to.have.callCount(0)
+      })
+
+      it('logs warning message', function () {
+        expect(Logger.warn).to.have.callCount(1)
+      })
     })
   })
 
   describe('propTypes defined but unknown type on Ember.Component', function () {
+    let MyComponent
+
     beforeEach(function () {
       sandbox.spy(Logger, 'warn')
       sandbox.spy(helpers, 'validateProperty')
-      const MyComponent = Component.extend(PropTypesMixin, {
+      MyComponent = Component.extend(PropTypesMixin, {
         propTypes: {
           foo: PropTypes.doesNotExist
         }
       })
-      MyComponent.create()
     })
 
-    it('does not call validateProperty', function () {
-      expect(helpers.validateProperty).to.have.callCount(0)
+    describe('validate setting not defined', function () {
+      let validateSettingOriginalValue
+
+      beforeEach(function () {
+        validateSettingOriginalValue = settings.validate
+        settings.validate = undefined
+        MyComponent.create()
+      })
+
+      afterEach(function () {
+        settings.validate = validateSettingOriginalValue
+      })
+
+      it('does not call validateProperty', function () {
+        expect(helpers.validateProperty).to.have.callCount(0)
+      })
+
+      it('logs warning message', function () {
+        expect(Logger.warn).to.have.callCount(1)
+      })
     })
 
-    it('logs warning message', function () {
-      expect(Logger.warn).to.have.callCount(1)
+    describe('validate setting set to false', function () {
+      let validateSettingOriginalValue
+
+      beforeEach(function () {
+        validateSettingOriginalValue = settings.validate
+        settings.validate = false
+        MyComponent.create()
+      })
+
+      afterEach(function () {
+        settings.validate = validateSettingOriginalValue
+      })
+
+      it('does not call validateProperty', function () {
+        expect(helpers.validateProperty).to.have.callCount(0)
+      })
+
+      it('does not log warning message', function () {
+        expect(Logger.warn).to.have.callCount(0)
+      })
+    })
+
+    describe('validate setting set to true', function () {
+      let validateSettingOriginalValue
+
+      beforeEach(function () {
+        validateSettingOriginalValue = settings.validate
+        settings.validate = true
+        MyComponent.create()
+      })
+
+      afterEach(function () {
+        settings.validate = validateSettingOriginalValue
+      })
+
+      it('does not call validateProperty', function () {
+        expect(helpers.validateProperty).to.have.callCount(0)
+      })
+
+      it('logs warning message', function () {
+        expect(Logger.warn).to.have.callCount(1)
+      })
     })
   })
 

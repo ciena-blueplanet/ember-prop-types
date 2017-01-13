@@ -11,7 +11,10 @@ module.exports = function (defaults) {
       useLintTree: false
     },
     'ember-prism': {
-      components: ['javascript'],
+      components: [
+        'handlebars',
+        'javascript'
+      ],
       theme: 'okaidia'
     }
   })

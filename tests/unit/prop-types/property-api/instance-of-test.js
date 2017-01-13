@@ -51,7 +51,7 @@ describe('Unit / validator / PropTypes.instanceOf', function () {
         ctx.instance = Foo.create({bar: new Classy()})
       })
 
-      itValidatesTheProperty(ctx)
+      itValidatesTheProperty(ctx, false)
     })
 
     describe('when initialized with non-Classy instance', function () {
@@ -59,7 +59,7 @@ describe('Unit / validator / PropTypes.instanceOf', function () {
         ctx.instance = Foo.create({bar: 1})
       })
 
-      itValidatesTheProperty(ctx, 'Expected property bar to be an instance of Classy')
+      itValidatesTheProperty(ctx, false, 'Expected property bar to be an instance of Classy')
     })
 
     describe('when initialized without value', function () {
@@ -67,7 +67,7 @@ describe('Unit / validator / PropTypes.instanceOf', function () {
         ctx.instance = Foo.create()
       })
 
-      itValidatesTheProperty(ctx, 'Missing required property bar')
+      itValidatesTheProperty(ctx, false, 'Missing required property bar')
     })
   })
 
@@ -86,7 +86,7 @@ describe('Unit / validator / PropTypes.instanceOf', function () {
         ctx.instance = Foo.create({bar: new Classy()})
       })
 
-      itValidatesTheProperty(ctx)
+      itValidatesTheProperty(ctx, false)
     })
 
     describe('when initialized with non-Classy instance', function () {
@@ -94,7 +94,7 @@ describe('Unit / validator / PropTypes.instanceOf', function () {
         ctx.instance = Foo.create({bar: 1})
       })
 
-      itValidatesTheProperty(ctx, 'Expected property bar to be an instance of Classy')
+      itValidatesTheProperty(ctx, false, 'Expected property bar to be an instance of Classy')
     })
 
     describe('when initialized without value', function () {
@@ -102,7 +102,7 @@ describe('Unit / validator / PropTypes.instanceOf', function () {
         ctx.instance = Foo.create()
       })
 
-      itValidatesTheProperty(ctx)
+      itValidatesTheProperty(ctx, false)
     })
   })
 })

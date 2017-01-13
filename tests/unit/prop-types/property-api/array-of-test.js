@@ -96,7 +96,7 @@ describe('Unit / validator / PropTypes.arrayOf', function () {
           ctx.instance = Foo.create({bar: ['alpha', 'bravo']})
         })
 
-        itValidatesTheProperty(ctx)
+        itValidatesTheProperty(ctx, false)
       })
 
       describe('when initialized with array of booleans', function () {
@@ -106,6 +106,7 @@ describe('Unit / validator / PropTypes.arrayOf', function () {
 
         itValidatesTheProperty(
           ctx,
+          false,
           'Expected property bar[0] to be a string',
           'Expected property bar to be an array of type string'
         )
@@ -118,6 +119,7 @@ describe('Unit / validator / PropTypes.arrayOf', function () {
 
         itValidatesTheProperty(
           ctx,
+          false,
           'Expected property bar[1] to be a string',
           'Expected property bar to be an array of type string'
         )
@@ -128,7 +130,7 @@ describe('Unit / validator / PropTypes.arrayOf', function () {
           ctx.instance = Foo.create()
         })
 
-        itValidatesTheProperty(ctx, 'Missing required property bar')
+        itValidatesTheProperty(ctx, false, 'Missing required property bar')
       })
     })
 
@@ -147,7 +149,7 @@ describe('Unit / validator / PropTypes.arrayOf', function () {
           ctx.instance = Foo.create({bar: ['alpha', 'bravo']})
         })
 
-        itValidatesTheProperty(ctx)
+        itValidatesTheProperty(ctx, false)
       })
 
       describe('when initialized with array of booleans', function () {
@@ -157,6 +159,7 @@ describe('Unit / validator / PropTypes.arrayOf', function () {
 
         itValidatesTheProperty(
           ctx,
+          false,
           'Expected property bar[0] to be a string',
           'Expected property bar to be an array of type string'
         )
@@ -169,6 +172,7 @@ describe('Unit / validator / PropTypes.arrayOf', function () {
 
         itValidatesTheProperty(
           ctx,
+          false,
           'Expected property bar[1] to be a string',
           'Expected property bar to be an array of type string'
         )
@@ -179,7 +183,7 @@ describe('Unit / validator / PropTypes.arrayOf', function () {
           ctx.instance = Foo.create()
         })
 
-        itValidatesTheProperty(ctx)
+        itValidatesTheProperty(ctx, false)
       })
     })
   })
@@ -203,7 +207,7 @@ describe('Unit / validator / PropTypes.arrayOf', function () {
           ctx.instance = Foo.create({bar: [{fizz: 'alpha', bang: 1}, {fizz: 'bravo', bang: 2}]})
         })
 
-        itValidatesTheProperty(ctx)
+        itValidatesTheProperty(ctx, false)
       })
 
       describe('when initialized with array of invalid shapes', function () {
@@ -213,6 +217,7 @@ describe('Unit / validator / PropTypes.arrayOf', function () {
 
         itValidatesTheProperty(
           ctx,
+          false,
           'Property bar[0] has an unknown key: foo',
           'Property bar[0] does not match the given shape',
           'Expected property bar to be an array of type shape'
@@ -226,6 +231,7 @@ describe('Unit / validator / PropTypes.arrayOf', function () {
 
         itValidatesTheProperty(
           ctx,
+          false,
           'Property bar[1] has an unknown key: foo',
           'Property bar[1] does not match the given shape',
           'Expected property bar to be an array of type shape'
@@ -237,7 +243,7 @@ describe('Unit / validator / PropTypes.arrayOf', function () {
           ctx.instance = Foo.create()
         })
 
-        itValidatesTheProperty(ctx, 'Missing required property bar')
+        itValidatesTheProperty(ctx, false, 'Missing required property bar')
       })
     })
 
@@ -259,7 +265,7 @@ describe('Unit / validator / PropTypes.arrayOf', function () {
           ctx.instance = Foo.create({bar: [{fizz: 'alpha', bang: 1}, {fizz: 'bravo', bang: 2}]})
         })
 
-        itValidatesTheProperty(ctx)
+        itValidatesTheProperty(ctx, false)
       })
 
       describe('when initialized with array of invalid shapes', function () {
@@ -269,6 +275,7 @@ describe('Unit / validator / PropTypes.arrayOf', function () {
 
         itValidatesTheProperty(
           ctx,
+          false,
           'Property bar[0] has an unknown key: foo',
           'Property bar[0] does not match the given shape',
           'Expected property bar to be an array of type shape'
@@ -282,6 +289,7 @@ describe('Unit / validator / PropTypes.arrayOf', function () {
 
         itValidatesTheProperty(
           ctx,
+          false,
           'Property bar[1] has an unknown key: foo',
           'Property bar[1] does not match the given shape',
           'Expected property bar to be an array of type shape'
@@ -293,7 +301,7 @@ describe('Unit / validator / PropTypes.arrayOf', function () {
           ctx.instance = Foo.create()
         })
 
-        itValidatesTheProperty(ctx)
+        itValidatesTheProperty(ctx, false)
       })
     })
   })
