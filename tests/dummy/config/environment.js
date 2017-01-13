@@ -1,7 +1,7 @@
 module.exports = function (environment) {
   var ENV = {
     APP: {},
-    baseURL: '/',
+    rootURL: '/',
     EmberENV: {
       FEATURES: {}
     },
@@ -21,12 +21,11 @@ module.exports = function (environment) {
 
   switch (environment) {
     case 'production':
-      ENV.baseURL = '/ember-prop-types'
+      ENV.rootURL = '/ember-prop-types'
       break
 
     case 'test':
       // Testem prefers this...
-      ENV.baseURL = '/'
       ENV.locationType = 'none'
 
       // keep test console output quieter
