@@ -10,30 +10,30 @@ import Ember from 'ember'
 import {afterEach, beforeEach, describe, it} from 'mocha'
 import * as spyOnMocha from 'mocha' // eslint-disable-line no-duplicate-imports
 import sinon from 'sinon'
-import validatePropTypes, * as PropTypesHelper from 'dummy/tests/helpers/ember-prop-types'
+import validatePropTypes, {forTestingOnly} from 'dummy/tests/helpers/ember-prop-types'
 
 describe('Unit / helpers / ember-prop-types', function () {
   describe('createMessages()', function () {
     it('should return empty array when provided all empty arguments', function () {
-      const result = PropTypesHelper.forTestingOnly.createMessages()
+      const result = forTestingOnly.createMessages()
 
       expect(result).to.eql([])
     })
 
     it('should create error message for different properties when only data passed', function () {
-      const result = PropTypesHelper.forTestingOnly.createMessages(['a', 'b'], [], [])
+      const result = forTestingOnly.createMessages(['a', 'b'], [], [])
 
       expect(result[0]).to.eql('The following propTypes are different than expected: a, b')
     })
 
     it('should create error message for missing properties when only data passed', function () {
-      const result = PropTypesHelper.forTestingOnly.createMessages([], ['a', 'b'], [])
+      const result = forTestingOnly.createMessages([], ['a', 'b'], [])
 
       expect(result[0]).to.eql('The following propTypes were not found but are expected: a, b')
     })
 
     it('should create error message for unexpected properties when only data passed', function () {
-      const result = PropTypesHelper.forTestingOnly.createMessages([], [], ['a', 'b'])
+      const result = forTestingOnly.createMessages([], [], ['a', 'b'])
 
       expect(result[0]).to.eql('The following propTypes were found but not expected: a, b')
     })
@@ -42,7 +42,7 @@ describe('Unit / helpers / ember-prop-types', function () {
       let result
 
       beforeEach(function () {
-        result = PropTypesHelper.forTestingOnly.createMessages(['a', 'b'], ['c', 'd'], ['e', 'f'])
+        result = forTestingOnly.createMessages(['a', 'b'], ['c', 'd'], ['e', 'f'])
       })
 
       it('different properties when all data is passed', function () {
@@ -61,7 +61,7 @@ describe('Unit / helpers / ember-prop-types', function () {
 
   describe('findDifferentProperties()', function () {
     it('should return an empty array when given no arguments', function () {
-      const result = PropTypesHelper.forTestingOnly.findDifferentProperties()
+      const result = forTestingOnly.findDifferentProperties()
 
       expect(result).to.eql([])
     })
@@ -75,7 +75,7 @@ describe('Unit / helpers / ember-prop-types', function () {
         a: null,
         b: null
       }
-      const result = PropTypesHelper.forTestingOnly.findDifferentProperties(defined, expected)
+      const result = forTestingOnly.findDifferentProperties(defined, expected)
 
       expect(result).to.eql([])
     })
@@ -103,7 +103,7 @@ describe('Unit / helpers / ember-prop-types', function () {
           another: true
         }
       }
-      const result = PropTypesHelper.forTestingOnly.findDifferentProperties(defined, expected)
+      const result = forTestingOnly.findDifferentProperties(defined, expected)
 
       expect(result).to.eql(['b'])
     })
@@ -111,7 +111,7 @@ describe('Unit / helpers / ember-prop-types', function () {
 
   describe('findMissingProperties()', function () {
     it('should return an empty array when given no arguments', function () {
-      const result = PropTypesHelper.forTestingOnly.findMissingProperties()
+      const result = forTestingOnly.findMissingProperties()
 
       expect(result).to.eql([])
     })
@@ -125,7 +125,7 @@ describe('Unit / helpers / ember-prop-types', function () {
         a: null,
         b: null
       }
-      const result = PropTypesHelper.forTestingOnly.findMissingProperties(defined, expected)
+      const result = forTestingOnly.findMissingProperties(defined, expected)
 
       expect(result).to.eql([])
     })
@@ -150,7 +150,7 @@ describe('Unit / helpers / ember-prop-types', function () {
           another: true
         }
       }
-      const result = PropTypesHelper.forTestingOnly.findMissingProperties(defined, expected)
+      const result = forTestingOnly.findMissingProperties(defined, expected)
 
       expect(result).to.eql(['b'])
     })
@@ -158,7 +158,7 @@ describe('Unit / helpers / ember-prop-types', function () {
 
   describe('findUnexpectedProperties()', function () {
     it('should return an empty array when given no arguments', function () {
-      const result = PropTypesHelper.forTestingOnly.findUnexpectedProperties()
+      const result = forTestingOnly.findUnexpectedProperties()
 
       expect(result).to.eql([])
     })
@@ -174,7 +174,7 @@ describe('Unit / helpers / ember-prop-types', function () {
         b: null,
         c: null
       }
-      const result = PropTypesHelper.forTestingOnly.findUnexpectedProperties(defined, expected)
+      const result = forTestingOnly.findUnexpectedProperties(defined, expected)
 
       expect(result).to.eql([])
     })
@@ -188,7 +188,7 @@ describe('Unit / helpers / ember-prop-types', function () {
       const expected = {
         b: null
       }
-      const result = PropTypesHelper.forTestingOnly.findUnexpectedProperties(defined, expected)
+      const result = forTestingOnly.findUnexpectedProperties(defined, expected)
 
       expect(result).to.eql(['a', 'c'])
     })
@@ -196,13 +196,13 @@ describe('Unit / helpers / ember-prop-types', function () {
 
   describe('getInstance()', function () {
     it('creates an instance if passed a class', function () {
-      const result = PropTypesHelper.forTestingOnly.getInstance(Ember.Object)
+      const result = forTestingOnly.getInstance(Ember.Object)
 
       expect(result instanceof Ember.Object).to.eql(true)
     })
 
     it('instances are passed through', function () {
-      const result = PropTypesHelper.forTestingOnly.getInstance(Ember.Object.create())
+      const result = forTestingOnly.getInstance(Ember.Object.create())
 
       expect(result instanceof Ember.Object).to.eql(true)
     })
@@ -217,7 +217,7 @@ describe('Unit / helpers / ember-prop-types', function () {
    */
   describe('validatePropTypes()', function () {
     let sandbox = sinon.sandbox.create()
-    let spyExpect = sandbox.spy(PropTypesHelper.forTestingOnly, 'expect')
+    let spyExpect = sandbox.spy(forTestingOnly, 'expect')
     let spyIt = sandbox.spy(spyOnMocha, 'it')
     const testObject = Ember.Object.create({
       propTypes: [
