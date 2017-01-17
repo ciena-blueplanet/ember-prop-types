@@ -124,8 +124,9 @@ guard clauses or other.
 The second argument is your expected `propTypes` definition.
 
 It's important to note the setup of the `describe()` in relation to the
-`validatePropTypes` call.  The call is not wrapped in an `it()` nor does it
-call `expect()`, as the helpers does so itself.
+`validatePropTypes` call.  The call to `validatePropTypes()` should not
+be wrapped in an `it()`.  The `describe()` should also not contain a call
+to `expect()`.
 
 ```js
 import {afterEach, beforeEach, describe} from 'mocha'
