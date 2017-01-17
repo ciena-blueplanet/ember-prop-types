@@ -35,7 +35,7 @@ describe('Unit / helpers / ember-prop-types', function () {
     it('should create error message for unexpected properties when only data passed', function () {
       const result = PropTypesHelper.forTestingOnly.createMessages([], [], ['a', 'b'])
 
-      expect(result[0]).to.eql('The following propTypes were found but not expected in the test: a, b')
+      expect(result[0]).to.eql('The following propTypes were found but not expected: a, b')
     })
 
     describe('should create error message for', function () {
@@ -54,7 +54,7 @@ describe('Unit / helpers / ember-prop-types', function () {
       })
 
       it('unexpected properties when all data is passed', function () {
-        expect(result[2]).to.eql('The following propTypes were found but not expected in the test: e, f')
+        expect(result[2]).to.eql('The following propTypes were found but not expected: e, f')
       })
     })
   })

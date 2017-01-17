@@ -32,7 +32,7 @@ function createMessages (different, missing, unexpected) {
 
   if (!isEmpty(unexpected)) {
     messages.push(
-      `The following propTypes were found but not expected in the test: ${unexpected.join(', ')}`
+      `The following propTypes were found but not expected: ${unexpected.join(', ')}`
     )
   }
 
