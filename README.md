@@ -113,6 +113,61 @@ sharing that same array or object. Uncovering this issue is not always an easy
 task and so *getDefaultProps* was also implemented (thanks to the React team for
   this concept as well).
 
+
+## Test Helper
+
+This addon provides a `validatePropTypes` test helper that can be used in unit
+tests to validate that the `propTypes` definitions on your Components are as
+expected.  It will check for definitions that are different, missing, and
+unexpected.
+
+The first argument can either be a Component class or instance, with the latter
+being for those times that you need to set properties to satisfy instantiation
+guard clauses or other.
+
+The second argument is your expected `propTypes` definition.
+
+It's important to note the setup of the `describe()` in relation to the
+`validatePropTypes` call.  The call to `validatePropTypes()` should not
+be wrapped in an `it()`.  The `describe()` should also not contain a call
+to `expect()`.
+
+```js
+import {afterEach, beforeEach, describe} from 'mocha'
+import sinon from 'sinon'
+import {unit} from 'dummy/tests/helpers/ember-test-utils/setup-component-test'
+
+import validatePropTypes from 'dummy/tests/helpers/ember-prop-types'
+import {PropTypes} from 'ember-prop-types'
+import Component from 'the-project/components/fancy-component'
+
+const test = unit('fancy-component', [])
+
+describe(test.label, function () {
+  test.setup()
+
+  let sandbox
+
+  beforeEach(function () {
+    sandbox = sinon.sandbox.create()
+  })
+
+  afterEach(function () {
+    sandbox.restore()
+  })
+
+  describe('Defined propTypes', function () {
+    validatePropTypes(
+      Component,  // or Component.create({someValue: 'set'})
+      {
+        isFancy: PropTypes.bool.isRequired,
+        fanciness: PropTypes.EmberObject.isRequired
+      })
+  })
+})
+```
+
+
 [bithound-img]: https://www.bithound.io/github/ciena-blueplanet/ember-prop-types/badges/score.svg "bitHound"
 [bithound-url]: https://www.bithound.io/github/ciena-blueplanet/ember-prop-types
 
