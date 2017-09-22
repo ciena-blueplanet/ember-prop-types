@@ -1,4 +1,5 @@
 import Ember from 'ember' // eslint-disable-line
+const {assign, merge} = Ember
 
 import any from './any'
 import array from './array'
@@ -19,7 +20,7 @@ import shape from './shape'
 import string from './string'
 import symbol from './symbol'
 
-const assign = Object.assign || Ember.assign || Ember.merge // eslint-disable-line
+const assign = Object.assign || assign || merge
 
 const validators = {
   any,
