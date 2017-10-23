@@ -21,7 +21,8 @@ export default function (validators, ctx, name, value, def, logErrors, throwErro
     return false
   }
 
-  if (typeOf(value) !== 'object') {
+  // allow POJOs as well as Ember Object instances for greater flexibility
+  if (typeOf(value) !== 'object' && typeOf(value) !== 'instance') {
     logger.warn(ctx, msg, throwErrors)
     return false
   }
