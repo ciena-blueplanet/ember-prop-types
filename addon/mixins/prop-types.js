@@ -1,13 +1,13 @@
 /**
  * The PropTypesMixin definition
  */
-import Ember from 'ember'
-const {Mixin, assign, get, getWithDefault, merge, typeOf} = Ember
+import {get, getWithDefault} from '@ember/object'
+import Mixin from '@ember/object/mixin'
+import {assign} from '@ember/polyfills'
+import {typeOf} from '@ember/utils'
 import config from 'ember-get-config'
 
 import PropTypes, {getDef, logger, validators} from '../utils/prop-types'
-
-const objectAssign = Object.assign || assign || merge
 
 export const settings = {
   requireComponentPropTypes: getWithDefault(
@@ -133,7 +133,7 @@ export default Mixin.create({
       })
 
       // Record the properties that were defaulted
-      objectAssign(defaultedProps, defaultProps)
+      assign(defaultedProps, defaultProps)
 
       // Apply the defaults for this layer of the hierarchy immediately
       // @sglanzer 2017-05-29 PR #118 delayed the execution of the setProperties

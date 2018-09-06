@@ -1,8 +1,7 @@
 /**
  * The PropTypes.array validator
  */
-import Ember from 'ember'
-const {typeOf} = Ember
+import {typeOf} from '@ember/utils'
 
 import logger from '../logger'
 
