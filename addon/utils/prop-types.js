@@ -1,5 +1,4 @@
-import Ember from 'ember'
-const {isArray, typeOf} = Ember
+import {typeOf} from '@ember/utils'
 import logger from './logger'
 import validators from './validators'
 
@@ -107,7 +106,7 @@ PropTypes.arrayOf = function (typeDef, options) {
 PropTypes.oneOfType = function (typeDefs, options) {
   const type = generateType('oneOfType')
 
-  if (isArray(typeDefs)) {
+  if (Array.isArray(typeDefs)) {
     typeDefs = typeDefs.map((def) => {
       return getDef(def)
     })
