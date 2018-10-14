@@ -35,10 +35,10 @@ Below is an example of a component that uses the property mixin provided by this
 addon:
 
 ```js
-import Ember from 'ember'
-import {PropTypes} from 'ember-prop-types'
+import Component from '@ember/component';
+import { PropTypes } from 'ember-prop-types'
 
-export default Ember.Component.extend({
+export default Component.extend({
   propTypes: {
     foo: PropTypes.string,
     bar: PropTypes.number.isRequired,
@@ -60,10 +60,9 @@ If this mixin is being used in a class other than Component, it will need to be
 mixed into the class:
 
 ```js
-import Ember from 'ember'
-import PropTypeMixin, {PropTypes} from 'ember-prop-types'
+import PropTypeMixin, { PropTypes } from 'ember-prop-types'
 
-export default Ember.ClassName.extend(PropTypeMixin, {
+export default ClassName.extend(PropTypeMixin, {
   propTypes: {
     foo: PropTypes.string,
     bar: PropTypes.number.isRequired,
