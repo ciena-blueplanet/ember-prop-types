@@ -7,6 +7,7 @@ const {get, typeOf} = Ember
 
 import logger from '../logger'
 
+/* eslint-disable complexity */
 export default function (validators, ctx, name, value, def, logErrors, throwErrors) {
   const typeDefs = def.typeDefs
   let msg = `Expected property ${name} to match given interface`
