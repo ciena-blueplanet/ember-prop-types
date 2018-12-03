@@ -209,6 +209,36 @@ PropTypes.shape = function (typeDefs, options) {
   return type
 }
 
+PropTypes.iface = function (typeDefs, options) {
+  const type = generateType('iface')
+
+  if (typeOf(typeDefs) === 'object') {
+    Object.keys(typeDefs)
+      .forEach((key) => {
+        typeDefs[key] = getDef(typeDefs[key])
+      })
+  }
+
+  type.typeDefs = typeDefs
+
+  if (typeOf(options) !== 'object') {
+    type.isRequired.typeDefs = type.typeDefs
+    return type
+  }
+
+  delete type.isRequired
+
+  if ('required' in options) {
+    type.required = options.required
+  }
+
+  if (options.updatable === false) {
+    type.updatable = false
+  }
+
+  return type
+}
+
 export default PropTypes
 export {validators}
 export {logger}
