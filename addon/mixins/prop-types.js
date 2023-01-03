@@ -1,7 +1,7 @@
 /**
  * The PropTypesMixin definition
  */
-import {get, getWithDefault} from '@ember/object'
+import { get } from "@ember/object";
 import Mixin from '@ember/object/mixin'
 import {assign, merge} from '@ember/polyfills'
 import {typeOf} from '@ember/utils'
@@ -15,14 +15,23 @@ import PropTypes, {
 
 const objectAssign = Object.assign || assign || merge
 
+const getWithDefaultPolyFill = (obj, key, defaultValue) => {
+  let result = get(obj, key);
+  if (result === undefined) {
+    result = defaultValue;
+  }
+
+  return result;
+};
+
 export const settings = {
-  requireComponentPropTypes: getWithDefault(
+  requireComponentPropTypes: getWithDefaultPolyFill(
     config, 'ember-prop-types.requireComponentPropTypes', false
   ),
   spreadProperty: get(config, 'ember-prop-types.spreadProperty'),
-  throwErrors: getWithDefault(config, 'ember-prop-types.throwErrors', false),
+  throwErrors: getWithDefaultPolyFill(config, 'ember-prop-types.throwErrors', false),
   validate: get(config, 'ember-prop-types.validate'),
-  validateOnUpdate: getWithDefault(config, 'ember-prop-types.validateOnUpdate', false)
+  validateOnUpdate: getWithDefaultPolyFill(config, 'ember-prop-types.validateOnUpdate', false)
 }
 
 export const helpers = {
